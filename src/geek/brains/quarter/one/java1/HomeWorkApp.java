@@ -3,7 +3,17 @@ package geek.brains.quarter.one.java1;
 public class HomeWorkApp {
 
     public static void main(String[] args) {
+        System.out.println();
+        printThreeWords();
 
+        System.out.println();
+        checkSumSign();
+
+        System.out.println();
+        printColor();
+
+        System.out.println();
+        compareNumbers();
     }
 
     private static void printThreeWords(){
