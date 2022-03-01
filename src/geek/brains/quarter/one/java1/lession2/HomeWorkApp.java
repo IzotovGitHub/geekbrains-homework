@@ -28,4 +28,10 @@ public class HomeWorkApp {
             System.out.println(line);
         }
     }
+
+    private static boolean isLeapYear(int year) {
+        if (year % 400 == 0) {
+            return true;
+        } else return year % 100 != 0 && year % 4 == 0;
+    }
 }
