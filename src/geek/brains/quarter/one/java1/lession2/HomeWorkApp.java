@@ -22,4 +22,10 @@ public class HomeWorkApp {
     private static boolean isNumberNegative(int number){
         return number < 0;
     }
+
+    private static void printLine(String line, int times){
+        for (int i = 0; i < times; i++){
+            System.out.println(line);
+        }
+    }
 }
