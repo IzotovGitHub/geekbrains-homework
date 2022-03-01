@@ -18,4 +18,8 @@ public class HomeWorkApp {
             System.out.println("Отрицательное число");
         }
     }
+
+    private static boolean isNumberNegative(int number){
+        return number < 0;
+    }
 }
