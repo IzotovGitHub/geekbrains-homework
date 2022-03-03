@@ -1,6 +1,16 @@
 package geek.brains.quarter.one.java1.lession3;
 
+import java.util.Arrays;
+
 public class SquareMatrix {
+
+    public static void main(String[] args) {
+        int[][] identitySquareMatrix = buildIdentitySquareMatrix(5);
+        int[][] matrix = fillInInverseDiagonalOfSquareMatrix(identitySquareMatrix, 1);
+        for (int[] row: matrix){
+            System.out.println(Arrays.toString(row));
+        }
+    }
 
     private static int[][] fillInInverseDiagonalOfSquareMatrix(int[][] matrix, int value) {
         if (isSquareMatrix(matrix)) {
