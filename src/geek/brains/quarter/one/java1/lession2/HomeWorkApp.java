@@ -3,7 +3,30 @@ package geek.brains.quarter.one.java1.lession2;
 public class HomeWorkApp {
 
     public static void main(String[] args) {
+        System.out.println("10 + 15 в диапазоне от 10 до 20? " + isSumBetweenTenAndTwenty(10, 15));
+        System.out.println();
 
+        System.out.println("-10:");
+        signCheck(-10);
+        System.out.println();
+
+        System.out.println("10 - меньше нуля? " + isNumberNegative(10));
+        System.out.println();
+
+        printLine("Меня напечатали 3 раза", 3);
+        System.out.println();
+
+        System.out.println("1-ый год високосный? " + isLeapYear(1));
+        System.out.println();
+
+        System.out.println("4-ый год високосный? " + isLeapYear(4));
+        System.out.println();
+
+        System.out.println("100-ый год високосный? " + isLeapYear(100));
+        System.out.println();
+
+        System.out.println("400-ый год високосный? " + isLeapYear(400));
+        System.out.println();
     }
 
     private static boolean isSumBetweenTenAndTwenty(int first, int second) {
