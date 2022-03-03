@@ -24,20 +24,20 @@ public class HomeWorkApp {
         return array;
     }
 
-    private static int findMin(int[] array){
+    private static int findMin(int[] array) {
         int min = Integer.MAX_VALUE;
-        for (int value: array){
-            if(value < min){
+        for (int value : array) {
+            if (value < min) {
                 min = value;
             }
         }
         return min;
     }
 
-    private static int findMax(int[] array){
+    private static int findMax(int[] array) {
         int max = Integer.MIN_VALUE;
-        for (int value: array){
-            if(value > max){
+        for (int value : array) {
+            if (value > max) {
                 max = value;
             }
         }
