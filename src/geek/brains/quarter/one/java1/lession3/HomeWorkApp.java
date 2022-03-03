@@ -15,4 +15,12 @@ public class HomeWorkApp {
         }
         return array;
     }
+
+    private static int[] initArray(int len, int value) {
+        int[] array = new int[len];
+        for (int i = 0; i < len; i++) {
+            array[i] = value;
+        }
+        return array;
+    }
 }
