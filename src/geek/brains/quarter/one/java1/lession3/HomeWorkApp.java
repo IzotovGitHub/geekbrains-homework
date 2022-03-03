@@ -33,4 +33,14 @@ public class HomeWorkApp {
         }
         return min;
     }
+
+    private static int findMax(int[] array){
+        int max = Integer.MIN_VALUE;
+        for (int value: array){
+            if(value > max){
+                max = value;
+            }
+        }
+        return max;
+    }
 }
