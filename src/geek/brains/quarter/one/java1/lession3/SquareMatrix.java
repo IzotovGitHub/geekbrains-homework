@@ -2,6 +2,16 @@ package geek.brains.quarter.one.java1.lession3;
 
 public class SquareMatrix {
 
+    private static boolean isSquareMatrix(int[][] matrix) {
+        int len = matrix.length;
+        for (int[] row : matrix) {
+            if (row.length != len) {
+                return false;
+            }
+        }
+        return true;
+    }
+
     private static int[][] buildIdentitySquareMatrix(int order) {
         int[][] matrix = buildSquareMatrix(order);
         for (int i = 0; i < order; i++) {
