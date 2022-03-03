@@ -19,12 +19,12 @@ public class HomeWorkApp {
         }
     }
 
-    private static boolean isNumberNegative(int number){
+    private static boolean isNumberNegative(int number) {
         return number < 0;
     }
 
-    private static void printLine(String line, int times){
-        for (int i = 0; i < times; i++){
+    private static void printLine(String line, int times) {
+        for (int i = 0; i < times; i++) {
             System.out.println(line);
         }
     }
@@ -32,6 +32,7 @@ public class HomeWorkApp {
     private static boolean isLeapYear(int year) {
         if (year % 400 == 0) {
             return true;
-        } else return year % 100 != 0 && year % 4 == 0;
+        }
+        return year % 100 != 0 && year % 4 == 0;
     }
 }
