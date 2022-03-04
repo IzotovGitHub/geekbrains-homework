@@ -2,6 +2,16 @@ package geek.brains.quarter.one.java1.lession3;
 
 public class ElementShift {
 
+    private static int[] shift(int[] array, int count) {
+        if (count == 0) {
+            return array;
+        } else if (count > 0) {
+            return shift(toRight(array), --count);
+        } else {
+            return shift(toLeft(array), ++count);
+        }
+    }
+
     private static int[] toLeft(int[] array) {
         int len = array.length;
         int cache = array[0];
