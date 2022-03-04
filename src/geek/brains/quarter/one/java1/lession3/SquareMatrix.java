@@ -12,6 +12,26 @@ public class SquareMatrix {
         }
     }
 
+    private static int[][] buildIdentitySquareMatrix(int order) {
+        int[][] matrix = buildSquareMatrix(order);
+        for (int i = 0; i < order; i++) {
+            for (int j = 0; j < order; j++) {
+                if (i == j) {
+                    matrix[i][j] = 1;
+                }
+            }
+        }
+        return matrix;
+    }
+
+    private static int[][] buildSquareMatrix(int order) {
+        int[][] matrix = new int[order][];
+        for (int i = 0; i < order; i++) {
+            matrix[i] = new int[order];
+        }
+        return matrix;
+    }
+
     private static int[][] fillInInverseDiagonalOfSquareMatrix(int[][] matrix, int value) {
         if (isSquareMatrix(matrix)) {
             int len = matrix.length;
@@ -35,25 +55,5 @@ public class SquareMatrix {
             }
         }
         return true;
-    }
-
-    private static int[][] buildIdentitySquareMatrix(int order) {
-        int[][] matrix = buildSquareMatrix(order);
-        for (int i = 0; i < order; i++) {
-            for (int j = 0; j < order; j++) {
-                if (i == j) {
-                    matrix[i][j] = 1;
-                }
-            }
-        }
-        return matrix;
-    }
-
-    private static int[][] buildSquareMatrix(int order) {
-        int[][] matrix = new int[order][];
-        for (int i = 0; i < order; i++) {
-            matrix[i] = new int[order];
-        }
-        return matrix;
     }
 }
