@@ -1,6 +1,13 @@
 package geek.brains.quarter.one.java1.lession3;
 
+import java.util.Arrays;
+
 public class ElementShift {
+
+    public static void main(String[] args) {
+        System.out.println(Arrays.toString(shift(new int[]{1, 2, 3, 4}, 1)));   // [4, 1, 2, 3]
+        System.out.println(Arrays.toString(shift(new int[]{1, 2, 3, 4}, -1)));  // [2, 3, 4, 1]
+    }
 
     private static int[] shift(int[] array, int count) {
         if (count == 0) {
