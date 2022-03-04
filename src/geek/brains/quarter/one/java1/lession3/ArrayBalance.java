@@ -2,6 +2,11 @@ package geek.brains.quarter.one.java1.lession3;
 
 public class ArrayBalance {
 
+    public static void main(String[] args) {
+        System.out.println(checkBalance(new int[]{1, 1, 0, 1})); // false
+        System.out.println(checkBalance(new int[]{1, 1, 1, 1})); // true
+    }
+
     private static boolean checkBalance(int[] array) {
         int lastIndex = array.length - 1;
         for (int i = 0; i < lastIndex; i++) {
