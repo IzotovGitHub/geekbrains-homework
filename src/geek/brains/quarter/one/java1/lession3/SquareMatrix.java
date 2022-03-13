@@ -2,6 +2,7 @@ package geek.brains.quarter.one.java1.lession3;
 
 import java.util.Arrays;
 
+// Задача  №4
 public class SquareMatrix {
 
     public static void main(String[] args) {

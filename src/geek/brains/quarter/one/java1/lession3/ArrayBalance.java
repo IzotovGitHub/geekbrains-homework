@@ -1,5 +1,6 @@
 package geek.brains.quarter.one.java1.lession3;
 
+// Задача №7
 public class ArrayBalance {
 
     public static void main(String[] args) {

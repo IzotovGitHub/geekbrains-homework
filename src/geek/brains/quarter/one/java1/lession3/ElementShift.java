@@ -2,6 +2,7 @@ package geek.brains.quarter.one.java1.lession3;
 
 import java.util.Arrays;
 
+// Задача №8
 public class ElementShift {
 
     public static void main(String[] args) {
@@ -10,6 +11,11 @@ public class ElementShift {
     }
 
     private static int[] shift(int[] array, int count) {
+
+        if (Math.abs(count) >= array.length) {
+            count %= array.length;
+        }
+
         if (count == 0) {
             return array;
         } else if (count > 0) {
