@@ -1,4 +1,4 @@
-package geek.brains.quarter.one.java1.lession7;
+package geek.brains.quarter.one.java1.lesson7;
 
 public class Cat {
 

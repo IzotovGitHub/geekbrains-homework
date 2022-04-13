@@ -1,4 +1,4 @@
-package geek.brains.quarter.one.java1.lession6;
+package geek.brains.quarter.one.java1.lesson6;
 
 import static java.lang.String.format;
 

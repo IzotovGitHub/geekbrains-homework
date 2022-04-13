@@ -1,4 +1,4 @@
-package geek.brains.quarter.one.java1.lession5;
+package geek.brains.quarter.one.java1.lesson5;
 
 import java.util.Arrays;
 

@@ -1,4 +1,4 @@
-package geek.brains.quarter.one.java1.lession8;
+package geek.brains.quarter.one.java1.lesson8;
 
 import javax.swing.*;
 import java.awt.*;

@@ -1,4 +1,4 @@
-package geek.brains.quarter.one.java1.lession1;
+package geek.brains.quarter.one.java1.lesson1;
 
 public class HomeWorkApp {
 

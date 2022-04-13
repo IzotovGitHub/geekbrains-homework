@@ -1,4 +1,4 @@
-package geek.brains.quarter.one.java1.lession3;
+package geek.brains.quarter.one.java1.lesson3;
 
 // Задача №7
 public class ArrayBalance {

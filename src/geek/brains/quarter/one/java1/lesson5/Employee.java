@@ -1,4 +1,4 @@
-package geek.brains.quarter.one.java1.lession5;
+package geek.brains.quarter.one.java1.lesson5;
 
 public class Employee {
     private String fullName;
