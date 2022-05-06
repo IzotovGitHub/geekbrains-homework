@@ -2,7 +2,6 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/Messenger/Messenger.iml" filepath="$PROJECT_DIR$/Messenger/Messenger.iml" />
       <module fileurl="file://$PROJECT_DIR$/geekbrains-homework.iml" filepath="$PROJECT_DIR$/geekbrains-homework.iml" />
     </modules>
   </component>
