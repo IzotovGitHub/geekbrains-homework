@@ -1,6 +1,8 @@
 module geek.brains.messenger {
     requires javafx.controls;
     requires javafx.fxml;
+    requires server;
+
 
 
     opens geek.brains.messenger to javafx.fxml;
