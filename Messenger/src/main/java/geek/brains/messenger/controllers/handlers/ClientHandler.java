@@ -4,7 +4,6 @@ import geek.brains.messenger.Messenger;
 import geek.brains.messenger.controllers.MainController;
 import geek.brains.server.connections.Connection;
 import geek.brains.server.constt.Command;
-import geek.brains.server.constt.ConnectionStatus;
 import geek.brains.server.network.Data;
 import javafx.application.Platform;
 

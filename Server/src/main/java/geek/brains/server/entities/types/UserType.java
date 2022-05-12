@@ -8,7 +8,7 @@ public enum UserType {
 
     private User user;
 
-    UserType(User user){
+    UserType(User user) {
         this.user = user;
     }
 

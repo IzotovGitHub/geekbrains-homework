@@ -1,27 +1,22 @@
 package geek.brains.messenger.controllers;
 
 import geek.brains.messenger.Messenger;
-import geek.brains.messenger.Network;
 import geek.brains.server.connections.Connection;
 import geek.brains.server.constt.Command;
 import geek.brains.server.network.Data;
-import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 
-import java.io.IOException;
 import java.util.Map;
 
 import static geek.brains.server.constt.BodyKeys.*;
 
 public class AuthController {
-    public static final String AUTH_COMMAND = "/auth";
-    public static final String AUTH_OK_COMMAND = "/authOk";
 
     @FXML
-    public  TextField userNameField;
+    public TextField userNameField;
     @FXML
     public TextField loginField;
     @FXML

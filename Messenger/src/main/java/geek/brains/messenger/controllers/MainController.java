@@ -1,8 +1,6 @@
 package geek.brains.messenger.controllers;
 
-import geek.brains.messenger.Network;
 import geek.brains.server.connections.Connection;
-import geek.brains.server.constt.Command;
 import geek.brains.server.network.Data;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -11,15 +9,14 @@ import javafx.scene.control.ListView;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 
-import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Map;
 
 import static geek.brains.server.constt.BodyKeys.MESSAGE;
 import static geek.brains.server.constt.BodyKeys.USER_NAME;
-import static geek.brains.server.constt.Command.*;
-import static java.lang.Thread.sleep;
+import static geek.brains.server.constt.Command.SEND_ALL;
+import static geek.brains.server.constt.Command.WRITE;
 
 public class MainController {
     @FXML
