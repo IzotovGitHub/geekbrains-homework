@@ -11,7 +11,7 @@
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.layout.HBox?>
 
-<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="500.0" prefWidth="1000.0" xmlns="http://javafx.com/javafx/11.0.2" xmlns:fx="http://javafx.com/fxml/1" fx:controller="geek.brains.messenger.controllers.MessengerController">
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="500.0" prefWidth="1000.0" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="geek.brains.messenger.controllers.MainController">
    <top>
       <Label alignment="CENTER" maxWidth="1.7976931348623157E308" prefHeight="25.0" text="Messenger" textAlignment="CENTER" BorderPane.alignment="CENTER" />
    </top>
@@ -25,7 +25,7 @@
             </AnchorPane>
           <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="100.0" prefWidth="160.0">
                <children>
-                  <ListView prefHeight="406.0" prefWidth="160.0" />
+                  <ListView fx:id="users" prefHeight="406.0" prefWidth="160.0" />
                </children>
             </AnchorPane>
         </items>
@@ -34,12 +34,12 @@
    <bottom>
       <HBox prefHeight="35.0" prefWidth="1000.0" BorderPane.alignment="CENTER_LEFT">
          <children>
-            <TextField fx:id="messageField" onAction="#appendMessageToChat" prefHeight="25.0" prefWidth="872.0">
+            <TextField fx:id="messageField" onAction="#sendMessage" prefHeight="25.0" prefWidth="872.0">
                <HBox.margin>
                   <Insets right="5.0" />
                </HBox.margin>
             </TextField>
-            <Button fx:id="sendButton" alignment="CENTER_RIGHT" contentDisplay="CENTER" mnemonicParsing="false" onAction="#appendMessageToChat" text="Отправить">
+            <Button fx:id="sendButton" alignment="CENTER_RIGHT" contentDisplay="CENTER" mnemonicParsing="false" onAction="#sendMessage" text="Отправить">
                <HBox.margin>
                   <Insets left="5.0" right="10.0" />
                </HBox.margin>

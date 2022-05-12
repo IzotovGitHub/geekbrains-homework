@@ -1,17 +1,17 @@
 package geek.brains.server.services;
 
 
+import geek.brains.server.entities.User;
 
-public class UserService {
+import java.util.Set;
 
-    private static UserService userService;
+public interface UserService {
 
-    private UserService(){}
+    User findByLogin(String login);
 
-    public static UserService getInstance(){
-        if(userService == null){
-            userService = new UserService();
-        }
-        return  userService;
-    }
+    User findByUserName(String userName);
+
+    void patch(User user);
+
+    Set<User> getAllUsers();
 }

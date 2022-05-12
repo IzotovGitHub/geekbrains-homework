@@ -1,112 +1,107 @@
 package geek.brains.server.handlers;
 
-import geek.brains.server.Server;
-import geek.brains.server.auth.AuthService;
-import geek.brains.server.auth.impl.BaseAuthService;
+import geek.brains.server.connections.Connection;
+import geek.brains.server.constt.Command;
 import geek.brains.server.entities.User;
+import geek.brains.server.network.Data;
+import geek.brains.server.services.ConnectionService;
+import geek.brains.server.services.UserService;
+import geek.brains.server.services.impl.ConnectionServiceImpl;
+import geek.brains.server.services.impl.UserServiceImpl;
 
-import java.io.DataInputStream;
-import java.io.DataOutputStream;
-import java.io.IOException;
-import java.net.Socket;
+import java.util.Map;
+import java.util.stream.Collectors;
+
+import static geek.brains.server.constt.BodyKeys.*;
+import static geek.brains.server.constt.BodyKeys.MESSAGE;
+import static geek.brains.server.constt.Command.*;
+import static geek.brains.server.constt.ConnectionStatus.*;
+import static java.util.Objects.nonNull;
 
 public class ClientHandler {
 
-    private Server server;
-    private Socket socket;
-    private AuthService authService;
+    private final Connection connection;
     private User user;
 
-    private DataInputStream in;
-    private DataOutputStream out;
+    private final UserService userService = UserServiceImpl.getInstance();
+    private final ConnectionService connectionService = ConnectionServiceImpl.getInstance();
 
-    private String name;
-
-    public String getName() {
-        return name;
+    private ClientHandler(Connection connection) {
+        this.connection = connection;
     }
 
-    public ClientHandler(Server server, Socket socket) {
-        try {
-            this.server = server;
-            this.socket = socket;
-            this.authService = new BaseAuthService();
-
-            this.in = new DataInputStream(socket.getInputStream());
-            this.out = new DataOutputStream(socket.getOutputStream());
-            this.name = "NULL";
-
-            new Thread(() -> {
-                try {
-                    authentication();
-                    readMessages();
-                } catch (IOException e) {
-                    e.printStackTrace();
-                } finally {
-                    closeConnection();
-                }
-            }).start();
-        } catch (IOException e) {
-            throw new RuntimeException("Проблемы при создании обработчика клиента");
-        }
+    public static ClientHandler newClientHandler(Connection connection) {
+        return new ClientHandler(connection);
     }
-    public void authentication() throws IOException {
-        while (true) {
-            String str = in.readUTF();
-            if (str.startsWith("/auth")) {
-                String[] parts = str.split("\\s");
-                String nick =
-                        authService.getNickByLoginPass(parts[1], parts[2]);
-                if (nick != null) {
-                    if (!server.isNickBusy(nick)) {
-                        sendMsg("/authok " + nick);
-                        name = nick;
-                        server.broadcastMsg(name + " зашел в чат");
-                        server.subscribe(this);
-                        return;
-                    } else {
-                        sendMsg("Учетная запись уже используется");
-                    }
-                } else {
-                    sendMsg("Неверные логин/пароль");
+
+    public void handle() {
+        new Thread(() -> {
+            while (!CLOSE.equals(connection.getStatus())) {
+                Data data = connection.waitData();
+                Map<String, String> body = data.getBody();
+                Command command = data.getCommand();
+
+                if (LOG_IN.equals(command)) {
+                    registration(data);
+                } else if (AUTH.equals(command)) {
+
+                } else if (!CONNECTION.equals(connection.getStatus())) {
+                    connection.sendErrMessage("Пожалуйста, пройдите авторизацию");
+                } else if (WRITE.equals(command)) {
+                    String userName = body.get(USER_NAME);
+                    User recipient = userService.findByUserName(userName);
+                    recipient.getConnection().sendData(new Data(Command.MESSAGE, Map.of(
+                            SENDER, user.getUsername(),
+                            MESSAGE, body.get(MESSAGE))));
+                } else if (END.equals(command)) {
+                    connectionService.getAllExistExcept(connection)
+                            .forEach(recipientConnection ->
+                                    recipientConnection.sendData(new Data(END, Map.of(SENDER, user.getUsername()))));
+                    connection.sendData(new Data(CLOSE_CONNECTION));
+                    connection.close();
+                    connectionService.patch(user.getUsername(), connection);
+                } else if (SEND_ALL.equals(command)) {
+                    connectionService.getAllExistExcept(connection)
+                            .forEach(recipientConnection ->
+                                    recipientConnection.sendData(
+                                            new Data(Command.MESSAGE, Map.of(
+                                                    SENDER, user.getUsername(),
+                                                    MESSAGE, body.get(MESSAGE)))));
+                } else if (UPDATE_USER_LIST.equals(command)) {
+                    String userNames = userService.getAllUsers().stream()
+                            .filter(user -> CONNECTION.equals(user.getConnection().getStatus()))
+                            .map(User::getUsername)
+                            .collect(Collectors.joining(","));
+                    connection.sendData(new Data(UPDATE_USER_LIST, Map.of(USER_NAMES, userNames)));
                 }
             }
-        }
+        }).start();
     }
-    public void readMessages() throws IOException {
-        while (true) {
-            String strFromClient = in.readUTF();
-            System.out.println("от " + name + ": " + strFromClient);
-            if (strFromClient.equals("/end")) {
-                return;
+
+    private void registration(Data data) {
+        connection.setStatus(REGISTRATION);
+        while (REGISTRATION.equals(connection.getStatus())) {
+            Map<String, String> body = data.getBody();
+            String login = body.get(LOGIN);
+            String password = body.get(PASSWORD);
+            String userName = body.get(USER_NAME);
+
+            User userFromDB = userService.findByUserName(userName);
+            if (nonNull(userName) && userName.equals(userFromDB.getUsername())) {
+                connection.setStatus(OPEN);
+                connection.sendErrMessage("Пользователь с таким именем уже существует");
+            } else if (nonNull(login) && login.equals(userFromDB.getLogin())) {
+                connection.setStatus(OPEN);
+                connection.sendErrMessage("Пользователь с таким логином уже существует");
+            } else if (password == null || password.length() <= 5) {
+                connection.setStatus(OPEN);
+                connection.sendErrMessage("Пароль не соответствует парольной политике");
+            } else {
+                user = new User(login, password, userName, connection);
+                userService.patch(user);
+                connection.connect();
+                connection.sendData(new Data(AUTH_OK, Map.of(USER_NAME, user.getUsername())));
             }
-            server.broadcastMsg(name + ": " + strFromClient);
-        }
-    }
-    public void sendMsg(String msg) {
-        try {
-            out.writeUTF(msg);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-    }
-    public void closeConnection() {
-        server.unsubscribe(this);
-        server.broadcastMsg(name + " вышел из чата");
-        try {
-            in.close();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        try {
-            out.close();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        try {
-            socket.close();
-        } catch (IOException e) {
-            e.printStackTrace();
         }
     }
 }
