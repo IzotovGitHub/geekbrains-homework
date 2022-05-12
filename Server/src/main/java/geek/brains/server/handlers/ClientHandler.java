@@ -12,8 +12,8 @@ import geek.brains.server.services.impl.UserServiceImpl;
 import java.util.Map;
 import java.util.stream.Collectors;
 
-import static geek.brains.server.constt.BodyKeys.*;
 import static geek.brains.server.constt.BodyKeys.MESSAGE;
+import static geek.brains.server.constt.BodyKeys.*;
 import static geek.brains.server.constt.Command.*;
 import static geek.brains.server.constt.ConnectionStatus.*;
 import static java.util.Objects.nonNull;

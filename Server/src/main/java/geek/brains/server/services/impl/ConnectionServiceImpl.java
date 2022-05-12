@@ -1,16 +1,11 @@
 package geek.brains.server.services.impl;
 
 import geek.brains.server.connections.Connection;
-import geek.brains.server.constt.ConnectionStatus;
 import geek.brains.server.entities.User;
-import geek.brains.server.entities.types.UserType;
 import geek.brains.server.services.ConnectionService;
 import geek.brains.server.services.UserService;
 
-import java.util.Collections;
 import java.util.Set;
-import java.util.concurrent.ExecutionException;
-import java.util.stream.Collectors;
 
 import static geek.brains.server.constt.ConnectionStatus.CONNECTION;
 import static geek.brains.server.entities.types.UserType.EMPTY_USER;
@@ -43,7 +38,7 @@ public class ConnectionServiceImpl implements ConnectionService {
     @Override
     public Connection patch(String userName, Connection connection) {
         User user = userService.findByUserName(userName);
-        if(!EMPTY_USER.getUser().equals(user)){
+        if (!EMPTY_USER.getUser().equals(user)) {
             User newUser = new User(user.getUsername(),
                     user.getLogin(),
                     user.getPassword(),

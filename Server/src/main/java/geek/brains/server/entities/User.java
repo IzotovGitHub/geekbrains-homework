@@ -43,7 +43,6 @@ public class User {
     }
 
 
-
     public String getStatus() {
         return status;
     }
