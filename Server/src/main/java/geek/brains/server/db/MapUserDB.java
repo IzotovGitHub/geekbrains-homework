@@ -37,6 +37,15 @@ public class MapUserDB {
         return user;
     }
 
+    public synchronized boolean update(String key, User newUser) {
+        if (userDB.containsKey(key) && isValidUser(newUser)) {
+            userDB.remove(key);
+            userDB.put(newUser.getUsername(), newUser.copy());
+            return true;
+        }
+        return false;
+    }
+
     public synchronized static MapUserDB getInstance() {
         if (instance == null) {
             instance = new MapUserDB();
@@ -48,7 +57,8 @@ public class MapUserDB {
         return user != null
                 && user.getLogin() != null
                 && user.getPassword() != null
-                && user.getUsername() != null;
+                && user.getUsername() != null
+                && user.getConnection() != null;
     }
 
 }

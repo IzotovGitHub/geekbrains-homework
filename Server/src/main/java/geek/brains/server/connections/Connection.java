@@ -9,6 +9,7 @@ import java.util.Map;
 import java.util.Objects;
 
 import static geek.brains.server.constt.BodyKeys.MESSAGE;
+import static geek.brains.server.constt.Command.END;
 import static geek.brains.server.constt.Command.ERR_MESSAGE;
 import static geek.brains.server.constt.ConnectionStatus.*;
 
@@ -34,9 +35,7 @@ public class Connection {
     public static Connection create(String host, int port) {
         try {
             Socket s = new Socket(host, port);
-            Connection c = new Connection(s);
-            c.connect();
-            return c;
+            return new Connection(s);
         } catch (IOException e) {
             e.printStackTrace();
             throw new RuntimeException("Невозможно установить сетевое соединение");
@@ -48,7 +47,7 @@ public class Connection {
             return (Data) new ObjectInputStream(in).readObject();
         } catch (IOException e) {
             System.err.println("Соединение прервано");
-            return new Data();
+            return new Data(END);
         } catch (ClassNotFoundException e) {
             throw new RuntimeException(e);
         }

@@ -9,4 +9,6 @@ module geek.brains.messenger {
     exports geek.brains.messenger;
     exports geek.brains.messenger.controllers;
     opens geek.brains.messenger.controllers to javafx.fxml;
+    exports geek.brains.messenger.controllers.impl;
+    opens geek.brains.messenger.controllers.impl to javafx.fxml;
 }

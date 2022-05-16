@@ -1,13 +1,13 @@
-package geek.brains.messenger.controllers;
+package geek.brains.messenger.controllers.impl;
 
+import geek.brains.messenger.controllers.Controller;
+import geek.brains.messenger.creators.ControllerCreator;
 import geek.brains.server.connections.Connection;
 import geek.brains.server.network.Data;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.scene.control.Button;
-import javafx.scene.control.ListView;
-import javafx.scene.control.TextArea;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
+import javafx.stage.Stage;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -18,20 +18,27 @@ import static geek.brains.server.constt.BodyKeys.USER_NAME;
 import static geek.brains.server.constt.Command.SEND_ALL;
 import static geek.brains.server.constt.Command.WRITE;
 
-public class MainController {
+public class MainController implements Controller {
+
     @FXML
     public TextField messageField;
-
     @FXML
     public Button sendButton;
-
     @FXML
     public TextArea messageTextArea;
-
     @FXML
     public ListView<String> users;
+    @FXML
+    public Button authBtn;
+    @FXML
+    public Button regBtn;
+    @FXML
+    public Label userNameLabel;
 
     private Connection connection;
+    private Stage stage;
+    private Controller regController;
+    private Controller authController;
 
 
     public void appendMessageToChat(String sender, String message) {
@@ -49,11 +56,6 @@ public class MainController {
 
         messageField.requestFocus();
         messageField.clear();
-    }
-
-
-    public void setConnection(Connection connection) {
-        this.connection = connection;
     }
 
     public void sendMessage(ActionEvent actionEvent) {
@@ -77,5 +79,41 @@ public class MainController {
 
         connection.sendData(data);
         appendMessageToChat("Я", message);
+    }
+
+    public void executeReg(ActionEvent actionEvent) {
+        regController = ControllerCreator.createRegController(stage, connection);
+    }
+
+    public void executeAuth(ActionEvent actionEvent) {
+        authController = ControllerCreator.createAuthController(stage, connection);
+    }
+
+    public Controller getRegController() {
+        return regController;
+    }
+
+    public Controller getAuthController() {
+        return authController;
+    }
+
+    @Override
+    public void setConnection(Connection connection) {
+        this.connection = connection;
+    }
+
+    @Override
+    public Connection getConnection() {
+        return connection;
+    }
+
+    @Override
+    public void setStage(Stage stage) {
+        this.stage = stage;
+    }
+
+    @Override
+    public Stage getStage() {
+        return stage;
     }
 }

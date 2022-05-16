@@ -37,13 +37,13 @@ public class ConnectionServiceImpl implements ConnectionService {
 
     @Override
     public Connection patch(String userName, Connection connection) {
-        User user = userService.findByUserName(userName);
-        if (!EMPTY_USER.getUser().equals(user)) {
-            User newUser = new User(user.getUsername(),
-                    user.getLogin(),
-                    user.getPassword(),
+        User oldUser = userService.findByUserName(userName);
+        if (!EMPTY_USER.getUser().equals(oldUser)) {
+            User newUser = new User(oldUser.getUsername(),
+                    oldUser.getLogin(),
+                    oldUser.getPassword(),
                     connection);
-            userService.patch(user);
+            userService.update(oldUser, newUser);
         }
         return connection;
     }
