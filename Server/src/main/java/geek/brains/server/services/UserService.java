@@ -13,5 +13,7 @@ public interface UserService {
 
     void patch(User user);
 
+    boolean update(User oldUser, User newUser);
+
     Set<User> getAllUsers();
 }

@@ -37,6 +37,11 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
+    public boolean update(User oldUser, User newUser) {
+        return userDB.update(oldUser.getUsername(), newUser);
+    }
+
+    @Override
     public Set<User> getAllUsers() {
         return new HashSet<>(userDB.getAll().values());
     }
